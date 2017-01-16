@@ -16,6 +16,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         runTimer();
+        //Wydaje mi się to błędne
     }
     public void onStartButtonClicked(View view) {
         running = true;
