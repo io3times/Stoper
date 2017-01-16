@@ -2,39 +2,63 @@ package com.level8.stoper;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
-   public boolean running;
-    public int second=0;
-    public String msg="Godziny";
+    private boolean running;
+    private int second = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        runTimer();
     }
-
-   final TextView godz_textView=(TextView)findViewById(R.id.godz_textView);
-  //  final TextView min_textView=(TextView)findViewById(R.id.min_textView);
-  // final TextView sek_textView=(TextView)findViewById(R.id.sek_textView);
-
-
     public void onStartButtonClicked(View view) {
         running = true;
-      godz_textView.setText(msg);
+
     }
 
     public void onStopButtonClicked(View view) {
         running = false;
+
     }
 
     public void onResetButtonClicked(View view) {
         running = false;
         second = 0;
     }
-    //public void runTimer(){
+    private void runTimer() {
+        final TextView godView = (TextView) findViewById(R.id.godTextView);
 
-    //}
+
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                int god=second/3600;
+                int min=(second%3600)/60;
+                int sek=second%60;
+                String msg= String.format("%d:%02d:%02d", god,min,sek);
+                godView.setText(msg);
+
+                if (running) {
+                    second++;
+                }
+                handler.postDelayed(this, 1000);
+            }
+
+
+
+        });
+
+
+    }
+
+
+
 
 }
