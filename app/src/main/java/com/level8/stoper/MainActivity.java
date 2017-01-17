@@ -15,8 +15,12 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(savedInstanceState!=null){
+            second=savedInstanceState.getInt("second");
+            running=savedInstanceState.getBoolean("running");
+        }
         runTimer();
-        
+
     }
     public void onStartButtonClicked(View view) {
         running = true;
@@ -58,7 +62,11 @@ public class MainActivity extends Activity {
 
 
     }
-
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        savedInstanceState.putInt("second", second);
+        savedInstanceState.putBoolean("running", running);
+    }
 
 
 
